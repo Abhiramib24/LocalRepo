@@ -1,0 +1,28 @@
+input[type='text'],
+input[type='number'] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.form {
+  border-radius: 5px;
+
+  padding: 20px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 7px 0;
+}
+
+td,
+th {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left;
+}
