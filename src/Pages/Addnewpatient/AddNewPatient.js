@@ -20,7 +20,15 @@ function AddNewPatient(props) {
   const handleClick = (e) => {
     e.preventDefault();
 
-    props.addNewPatient(patientDetails);
+    if (
+      patientDetails.fname !== '' &&
+      patientDetails.age !== '' &&
+      patientDetails.place !== '' &&
+      patientDetails.contactnum !== '' &&
+      patientDetails.doctorname !== ''
+    ) {
+      props.addNewPatient(patientDetails);
+    }
   };
 
   return (
