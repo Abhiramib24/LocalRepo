@@ -1,9 +1,5 @@
 const initialState = {
-  fname: [],
-  age: [],
-  place: [],
-  contactnum: [],
-  doctorname: [],
+  patient:[]
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,12 +7,7 @@ const reducer = (state = initialState, action) => {
     case 'ADD_NEW':
       return {
         ...state,
-
-        fname: [...state.fname, action.name],
-        age: [...state.age, action.age],
-        place: [...state.place, action.place],
-        contactnum: [...state.contactnum, action.contactnum],
-        doctorname: [...state.doctorname, action.doctorname],
+        patient:[...state.patient,action.patient]
       };
     default:
       return state;

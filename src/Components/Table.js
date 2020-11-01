@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 import * as Constants from '../Constants/Constants';
 
 function Table(props) {
+  const{patient}=props;
+  
   const isAvailable = () => {
     if (
-      props.fname.length !== 0 &&
-      props.age.length !== 0 &&
-      props.place.length !== 0 &&
-      props.contactnum.length !== 0 &&
-      props.doctorname.length !== 0
+      patient.length !== 0 
+      
     ) {
       return true;
     } else {
       return false;
     }
   };
+
   return (
     <>
       {isAvailable() && (
@@ -31,14 +31,14 @@ function Table(props) {
           </thead>
 
           <tbody>
-            {props.fname.map((fname, i) => {
+            {patient.map((patient, i) => {
               return (
                 <tr key={i}>
-                  <td>{fname}</td>
-                  <td>{props.age[i]}</td>
-                  <td>{props.place[i]}</td>
-                  <td>{props.contactnum[i]}</td>
-                  <td>{props.doctorname[i]}</td>
+                  <td>{patient.fname}</td>
+                  <td>{patient.age}</td>
+                  <td>{patient.place}</td>
+                  <td>{patient.contactnum}</td>
+                  <td>{patient.doctorname}</td>
                 </tr>
               );
             })}
@@ -50,11 +50,7 @@ function Table(props) {
 }
 const mapStateToProps = (state) => {
   return {
-    fname: state.fname,
-    age: state.age,
-    place: state.place,
-    contactnum: state.contactnum,
-    doctorname: state.doctorname,
+    patient:state.patient
   };
 };
 
