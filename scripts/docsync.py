@@ -82,23 +82,19 @@ def generate_doc_for_file(source_path: Path) -> str:
     rel_path = source_path.relative_to(REPO_ROOT)
     code = source_path.read_text(encoding="utf-8", errors="ignore")
 
-    prompt = f"""
-You are a documentation assistant.
+    prompt = (
+        "Generate clear Markdown documentation for this file. \n\n"
+        f"File: {rel_path}\n\n"
+        "Code:\n```text\n"
+        f"{code}\n"
+        "```\n\n"
+        "Requirements:\n"
+        "- Start with a title\n"
+        "- Explain what the file does\n"
+        "- List main classes and functiond\n"
+        "- Provide examples or usage\n"
 
-I will give you the contents of a source code file from a GitHub repo.
-Generate clear, concise **Markdown** documentation for this file.
+    )
 
-Requirements:
-- Start with an H1 title using the file name.
-- Briefly explain what this module/component does.
-- List the main functions/classes and what they do.
-- Add a "Usage" section with example snippets if possible.
-- Keep it under 400–600 words.
-- Keep the tone technical and straightforward (no marketing language).
-
-File path: `{rel_path}`
-
-Source code:
-```text
-{code}
+    return call_llm(prompt)
 
