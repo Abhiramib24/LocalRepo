@@ -3,7 +3,7 @@ name: DocSync
 on:
   push:
     branches:
-      - master          # ⬅ change to 'release' if that’s your branch
+      - main        # ⬅ change to 'release' if that's your branch
 
 jobs:
   generate-docs:
@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # we need history for git diff
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,14 +26,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run DocSync
-        env:
-          # Built-in GitHub token (for auth if you call GitHub-hosted models or other internal services)
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BEFORE_SHA: ${{ github.event.before }}
-          AFTER_SHA: ${{ github.sha }}
+      - name: Run DocSync (CI version)
         run: |
-          python scripts/docsync.py
+          echo "Running DocSync CI script..."
+          python scripts/docsync_ci.py
+
+          echo "Listing docs folder after generation:"
+          ls -R docs || echo "No docs folder found"
+
+          echo "Git status after generation:"
+          git status
 
       - name: Commit and push docs (if changed)
         run: |
@@ -43,10 +43,10 @@ jobs:
           git config user.email "docsync-bot@users.noreply.github.com"
 
           if [[ -n "$(git status --porcelain docs)" ]]; then
+            echo "Docs have changed. Committing..."
             git add docs
             git commit -m "chore(docsync): update docs [skip ci]" || echo "No changes to commit"
             git push origin HEAD:${{ github.ref_name }}
           else
             echo "No doc changes to commit."
           fi
-
