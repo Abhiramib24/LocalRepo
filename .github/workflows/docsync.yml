@@ -3,7 +3,7 @@ name: DocSync
 on:
   push:
     branches:
-      - main        # ⬅ change to 'release' if that's your branch
+      - master        # ⬅ change to 'release' if that's your branch
 
 jobs:
   generate-docs:
