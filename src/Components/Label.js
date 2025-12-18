@@ -2,6 +2,7 @@ import React from 'react';
 
 function Label (props){
     const {label ,type, name,value,handleChange}=props
+    console.log(label);
     return(
         <label>
           {label}
